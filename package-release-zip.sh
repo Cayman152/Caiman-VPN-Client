@@ -3,8 +3,8 @@
 Arch="$1"
 OutputPath="$2"
 
-OutputArch="GhostVPN-${Arch}"
-FileName="GhostVPN-${Arch}.zip"
+OutputArch="CaimanVPN-${Arch}"
+FileName="CaimanVPN-${Arch}.zip"
 
 wget -nv -O $FileName "https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/$FileName"
 

@@ -280,8 +280,8 @@ ServiceFabricBackup/
 # Microsoft Fakes
 FakesAssemblies/
 
-# GhostDoc plugin setting file
-*.GhostDoc.xml
+# CaimanDoc plugin setting file
+*.CaimanDoc.xml
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat

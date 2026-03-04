@@ -113,11 +113,11 @@ if [[ -f .gitmodules ]]; then
 fi
 
 # Locate project
-PROJECT="GhostVPN.Desktop/GhostVPN.Desktop.csproj"
+PROJECT="CaimanVPN.Desktop/CaimanVPN.Desktop.csproj"
 if [[ ! -f "$PROJECT" ]]; then
-  PROJECT="$(find . -maxdepth 3 -name 'GhostVPN.Desktop.csproj' | head -n1 || true)"
+  PROJECT="$(find . -maxdepth 3 -name 'CaimanVPN.Desktop.csproj' | head -n1 || true)"
 fi
-[[ -f "$PROJECT" ]] || { echo "GhostVPN.Desktop.csproj not found"; exit 1; }
+[[ -f "$PROJECT" ]] || { echo "CaimanVPN.Desktop.csproj not found"; exit 1; }
 
 # Resolve GUI version & auto checkout
 VERSION=""
@@ -136,7 +136,7 @@ choose_channel() {
   # Print menu to stderr and read from /dev/tty so stdout only carries the token.
   local ch="latest" sel=""
   if [[ -t 0 ]]; then
-    echo "[?] Choose GhostVPN release channel:" >&2
+    echo "[?] Choose CaimanVPN release channel:" >&2
     echo "    1) Latest (stable)  [default]" >&2
     echo "    2) Pre-release (preview)" >&2
     echo "    3) Keep current (do nothing)" >&2
@@ -218,7 +218,7 @@ git_try_checkout() {
 
 if git rev-parse --git-dir >/dev/null 2>&1; then
   if [[ -n "${VERSION_ARG:-}" ]]; then
-    echo "[*] Trying to switch GhostVPN repo to version: ${VERSION_ARG}"
+    echo "[*] Trying to switch CaimanVPN repo to version: ${VERSION_ARG}"
     if git_try_checkout "${VERSION_ARG#v}"; then
       VERSION="${VERSION_ARG#v}"
     else
@@ -400,18 +400,18 @@ download_geo_assets() {
   unify_geo_layout "$outroot"
 }
 
-# Prefer the prebuilt GhostVPN core bundle; then unify geo layout
-download_ghostvpn_bundle() {
+# Prefer the prebuilt CaimanVPN core bundle; then unify geo layout
+download_caimanvpn_bundle() {
   local outroot="$1"
   local url=""
   if [[ "$RID_DIR" == "linux-arm64" ]]; then
-    url="https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/GhostVPN-linux-arm64.zip"
+    url="https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-linux-arm64.zip"
   else
-    url="https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/GhostVPN-linux-64.zip"
+    url="https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-linux-64.zip"
   fi
-  echo "[+] Try GhostVPN bundle archive: $url"
+  echo "[+] Try CaimanVPN bundle archive: $url"
   local tmp zipname
-  tmp="$(mktemp -d)"; zipname="$tmp/ghostvpn.zip"
+  tmp="$(mktemp -d)"; zipname="$tmp/caimanvpn.zip"
   curl -fL "$url" -o "$zipname" || { echo "[!] Bundle download failed"; return 1; }
   unzip -q "$zipname" -d "$tmp" || { echo "[!] Bundle unzip failed"; return 1; }
 
@@ -422,11 +422,11 @@ download_ghostvpn_bundle() {
     rsync -a "$tmp/" "$outroot/"
   fi
 
-  rm -f "$outroot/ghostvpn.zip" 2>/dev/null || true
+  rm -f "$outroot/caimanvpn.zip" 2>/dev/null || true
   find "$outroot" -type d -name "mihomo" -prune -exec rm -rf {} + 2>/dev/null || true
 
   local nested_dir
-  nested_dir="$(find "$outroot" -maxdepth 1 -type d -name 'GhostVPN-linux-*' | head -n1 || true)"
+  nested_dir="$(find "$outroot" -maxdepth 1 -type d -name 'CaimanVPN-linux-*' | head -n1 || true)"
   if [[ -n "${nested_dir:-}" && -d "$nested_dir/bin" ]]; then
     mkdir -p "$outroot/bin"
     rsync -a "$nested_dir/bin/" "$outroot/bin/"
@@ -477,7 +477,7 @@ build_for_arch() {
   export RID_DIR
 
   # Per-arch working area
-  local PKGROOT="GhostVPN-publish"
+  local PKGROOT="CaimanVPN-publish"
   local WORKDIR
   WORKDIR="$(mktemp -d)"
   trap '[[ -n "${WORKDIR:-}" ]] && rm -rf "$WORKDIR"' RETURN
@@ -495,16 +495,16 @@ build_for_arch() {
 
   # Optional icon
   local ICON_CANDIDATE
-  ICON_CANDIDATE="$(dirname "$PROJECT")/../GhostVPN.Desktop/GhostVPN.png"
-  [[ -f "$ICON_CANDIDATE" ]] && cp "$ICON_CANDIDATE" "$WORKDIR/$PKGROOT/ghostvpn.png" || true
+  ICON_CANDIDATE="$(dirname "$PROJECT")/../CaimanVPN.Desktop/CaimanVPN.png"
+  [[ -f "$ICON_CANDIDATE" ]] && cp "$ICON_CANDIDATE" "$WORKDIR/$PKGROOT/caimanvpn.png" || true
 
   # Prepare bin structure
   mkdir -p "$WORKDIR/$PKGROOT/bin/xray" "$WORKDIR/$PKGROOT/bin/sing_box"
 
   # Bundle / cores per-arch
   if [[ "$FORCE_NETCORE" -eq 0 ]]; then
-    if download_ghostvpn_bundle "$WORKDIR/$PKGROOT"; then
-      echo "[*] Using GhostVPN bundle archive."
+    if download_caimanvpn_bundle "$WORKDIR/$PKGROOT"; then
+      echo "[*] Using CaimanVPN bundle archive."
     else
       echo "[*] Bundle failed, fallback to separate core + rules."
       if [[ "$WITH_CORE" == "xray" || "$WITH_CORE" == "both" ]]; then
@@ -531,7 +531,7 @@ build_for_arch() {
   tar -C "$WORKDIR" -czf "$SOURCEDIR/$PKGROOT.tar.gz" "$PKGROOT"
 
   # SPEC
-  local SPECFILE="$SPECDIR/GhostVPN.spec"
+  local SPECFILE="$SPECDIR/CaimanVPN.spec"
   mkdir -p "$SPECDIR"
   cat > "$SPECFILE" <<'SPEC'
 %global debug_package %{nil}
@@ -540,10 +540,10 @@ build_for_arch() {
 # Ignore outdated LTTng dependencies incorrectly reported by the .NET runtime (to avoid installation failures)
 %global __requires_exclude ^liblttng-ust\.so\..*$
 
-Name:           GhostVPN
+Name:           CaimanVPN
 Version:        __VERSION__
 Release:        1%{?dist}
-Summary:        GhostVPN (Avalonia) GUI client for Linux (x86_64/aarch64)
+Summary:        CaimanVPN (Avalonia) GUI client for Linux (x86_64/aarch64)
 License:        GPL-3.0-only
 URL:            https://github.com/Cayman152/Caiman-VPN-Client
 BugURL:         https://github.com/Cayman152/Caiman-VPN-Client/issues
@@ -561,7 +561,7 @@ Requires:       bash >= 5.1
 Requires:       freetype >= 2.10
 
 %description
-GhostVPN Linux for Red Hat Enterprise Linux
+CaimanVPN Linux for Red Hat Enterprise Linux
 Support vless / vmess / Trojan / http / socks / Anytls / Hysteria2 / Shadowsocks / tuic / WireGuard
 Support Red Hat Enterprise Linux / Fedora Linux / Rocky Linux / AlmaLinux / CentOS
 For more information, Please visit our website
@@ -574,53 +574,53 @@ https://github.com/Cayman152/Caiman-VPN-Client
 # no build
 
 %install
-install -dm0755 %{buildroot}/opt/GhostVPN
-cp -a * %{buildroot}/opt/GhostVPN/
+install -dm0755 %{buildroot}/opt/CaimanVPN
+cp -a * %{buildroot}/opt/CaimanVPN/
 
 install -dm0755 %{buildroot}%{_sysconfdir}/sudoers.d
-cat > %{buildroot}%{_sysconfdir}/sudoers.d/ghostvpn-mihomo-deny << 'EOF'
-ALL ALL=(ALL) !/home/*/.local/share/GhostVPN/bin/mihomo/mihomo
+cat > %{buildroot}%{_sysconfdir}/sudoers.d/caimanvpn-mihomo-deny << 'EOF'
+ALL ALL=(ALL) !/home/*/.local/share/CaimanVPN/bin/mihomo/mihomo
 EOF
-chmod 0440 %{buildroot}%{_sysconfdir}/sudoers.d/ghostvpn-mihomo-deny
+chmod 0440 %{buildroot}%{_sysconfdir}/sudoers.d/caimanvpn-mihomo-deny
 
 # Launcher (prefer native ELF first, then DLL fallback)
 install -dm0755 %{buildroot}%{_bindir}
-cat > %{buildroot}%{_bindir}/ghostvpn << 'EOF'
+cat > %{buildroot}%{_bindir}/caimanvpn << 'EOF'
 #!/usr/bin/bash
 set -euo pipefail
-DIR="/opt/GhostVPN"
+DIR="/opt/CaimanVPN"
 
 # Prefer native apphost
-if [[ -x "$DIR/GhostVPN" ]]; then exec "$DIR/GhostVPN" "$@"; fi
+if [[ -x "$DIR/CaimanVPN" ]]; then exec "$DIR/CaimanVPN" "$@"; fi
 
 # DLL fallback
-for dll in GhostVPN.Desktop.dll GhostVPN.dll; do
+for dll in CaimanVPN.Desktop.dll CaimanVPN.dll; do
   if [[ -f "$DIR/$dll" ]]; then exec /usr/bin/dotnet "$DIR/$dll" "$@"; fi
 done
 
-echo "GhostVPN launcher: no executable found in $DIR" >&2
+echo "CaimanVPN launcher: no executable found in $DIR" >&2
 ls -l "$DIR" >&2 || true
 exit 1
 EOF
-chmod 0755 %{buildroot}%{_bindir}/ghostvpn
+chmod 0755 %{buildroot}%{_bindir}/caimanvpn
 
 # Desktop file
 install -dm0755 %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/ghostvpn.desktop << 'EOF'
+cat > %{buildroot}%{_datadir}/applications/caimanvpn.desktop << 'EOF'
 [Desktop Entry]
 Type=Application
-Name=GhostVPN
-Comment=GhostVPN for Red Hat Enterprise Linux
-Exec=ghostvpn
-Icon=ghostvpn
+Name=CaimanVPN
+Comment=CaimanVPN for Red Hat Enterprise Linux
+Exec=caimanvpn
+Icon=caimanvpn
 Terminal=false
 Categories=Network;
 EOF
 
 # Icon
-if [ -f "%{_builddir}/__PKGROOT__/ghostvpn.png" ]; then
+if [ -f "%{_builddir}/__PKGROOT__/caimanvpn.png" ]; then
   install -dm0755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
-  install -m0644 %{_builddir}/__PKGROOT__/ghostvpn.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/ghostvpn.png
+  install -m0644 %{_builddir}/__PKGROOT__/caimanvpn.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/caimanvpn.png
 fi
 
 %post
@@ -632,11 +632,11 @@ fi
 /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor >/dev/null 2>&1 || true
 
 %files
-%{_bindir}/ghostvpn
-/opt/GhostVPN
-%{_datadir}/applications/ghostvpn.desktop
-%{_datadir}/icons/hicolor/256x256/apps/ghostvpn.png
-%config(noreplace) /etc/sudoers.d/ghostvpn-mihomo-deny
+%{_bindir}/caimanvpn
+/opt/CaimanVPN
+%{_datadir}/applications/caimanvpn.desktop
+%{_datadir}/icons/hicolor/256x256/apps/caimanvpn.png
+%config(noreplace) /etc/sudoers.d/caimanvpn-mihomo-deny
 SPEC
 
   # Autostart injection (inside %install) and %files entry
@@ -646,11 +646,11 @@ SPEC
       /^%post$/ && !ins {
         print "# --- Autostart (.desktop) ---"
         print "install -dm0755 %{buildroot}/etc/xdg/autostart"
-        print "cat > %{buildroot}/etc/xdg/autostart/ghostvpn.desktop << '\''EOF'\''"
+        print "cat > %{buildroot}/etc/xdg/autostart/caimanvpn.desktop << '\''EOF'\''"
         print "[Desktop Entry]"
         print "Type=Application"
-        print "Name=GhostVPN (Autostart)"
-        print "Exec=ghostvpn"
+        print "Name=CaimanVPN (Autostart)"
+        print "Exec=caimanvpn"
         print "X-GNOME-Autostart-enabled=true"
         print "NoDisplay=false"
         print "EOF"
@@ -662,9 +662,9 @@ SPEC
     awk '
       BEGIN{infiles=0; done=0}
       /^%files$/        {infiles=1}
-      infiles && done==0 && $0 ~ /%{_datadir}\/icons\/hicolor\/256x256\/apps\/ghostvpn\.png/ {
+      infiles && done==0 && $0 ~ /%{_datadir}\/icons\/hicolor\/256x256\/apps\/caimanvpn\.png/ {
         print
-        print "%config(noreplace) /etc/xdg/autostart/ghostvpn.desktop"
+        print "%config(noreplace) /etc/xdg/autostart/caimanvpn.desktop"
         done=1
         next
       }
@@ -681,7 +681,7 @@ SPEC
 
   echo "Build done for $short. RPM at:"
   local f
-  for f in "${TOPDIR}/RPMS/${archdir}/GhostVPN-${VERSION}-1"*.rpm; do
+  for f in "${TOPDIR}/RPMS/${archdir}/CaimanVPN-${VERSION}-1"*.rpm; do
     [[ -e "$f" ]] || continue
     echo "  $f"
     BUILT_RPMS+=("$f")

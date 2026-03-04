@@ -4,16 +4,16 @@ Arch="$1"
 OutputPath="$2"
 Version="$3"
 
-FileName="GhostVPN-${Arch}.zip"
+FileName="CaimanVPN-${Arch}.zip"
 wget -nv -O $FileName "https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/$FileName"
 7z x $FileName
-cp -rf GhostVPN-${Arch}/* $OutputPath
+cp -rf CaimanVPN-${Arch}/* $OutputPath
 
-PackagePath="GhostVPN-Package-${Arch}"
+PackagePath="CaimanVPN-Package-${Arch}"
 mkdir -p "${PackagePath}/DEBIAN"
 mkdir -p "${PackagePath}/opt"
-cp -rf $OutputPath "${PackagePath}/opt/GhostVPN"
-echo "When this file exists, app will not store configs under this folder" > "${PackagePath}/opt/GhostVPN/NotStoreConfigHere.txt"
+cp -rf $OutputPath "${PackagePath}/opt/CaimanVPN"
+echo "When this file exists, app will not store configs under this folder" > "${PackagePath}/opt/CaimanVPN/NotStoreConfigHere.txt"
 
 if [ $Arch = "linux-64" ]; then
     Arch2="amd64" 
@@ -24,7 +24,7 @@ echo $Arch2
 
 # basic
 cat >"${PackagePath}/DEBIAN/control" <<-EOF
-Package: GhostVPN
+Package: CaimanVPN
 Version: $Version
 Architecture: $Arch2
 Maintainer: https://github.com/Cayman152/Caiman-VPN-Client
@@ -33,13 +33,13 @@ Description: A GUI client for Windows and Linux, support Xray core and sing-box-
 EOF
 
 cat >"${PackagePath}/DEBIAN/postinst" <<-EOF
-if [ ! -s /usr/share/applications/GhostVPN.desktop ]; then
-    cat >/usr/share/applications/GhostVPN.desktop<<-END
+if [ ! -s /usr/share/applications/CaimanVPN.desktop ]; then
+    cat >/usr/share/applications/CaimanVPN.desktop<<-END
 [Desktop Entry]
-Name=GhostVPN
+Name=CaimanVPN
 Comment=A GUI client for Windows and Linux, support Xray core and sing-box-core and others
-Exec=/opt/GhostVPN/GhostVPN
-Icon=/opt/GhostVPN/GhostVPN.png
+Exec=/opt/CaimanVPN/CaimanVPN
+Icon=/opt/CaimanVPN/CaimanVPN.png
 Terminal=false
 Type=Application
 Categories=Network;Application;
@@ -50,20 +50,20 @@ update-desktop-database
 EOF
 
 sudo chmod 0755 "${PackagePath}/DEBIAN/postinst"
-sudo chmod 0755 "${PackagePath}/opt/GhostVPN/GhostVPN"
-sudo chmod 0755 "${PackagePath}/opt/GhostVPN/AmazTool"
+sudo chmod 0755 "${PackagePath}/opt/CaimanVPN/CaimanVPN"
+sudo chmod 0755 "${PackagePath}/opt/CaimanVPN/AmazTool"
 
 # Patch
 # set owner to root:root
 sudo chown -R root:root "${PackagePath}"
 # set all directories to 755 (readable & traversable by all users)
-sudo find "${PackagePath}/opt/GhostVPN" -type d -exec chmod 755 {} +
+sudo find "${PackagePath}/opt/CaimanVPN" -type d -exec chmod 755 {} +
 # set all regular files to 644 (readable by all users)
-sudo find "${PackagePath}/opt/GhostVPN" -type f -exec chmod 644 {} +
+sudo find "${PackagePath}/opt/CaimanVPN" -type f -exec chmod 644 {} +
 # ensure main binaries are 755 (executable by all users)
-sudo chmod 755 "${PackagePath}/opt/GhostVPN/GhostVPN" 2>/dev/null || true
-sudo chmod 755 "${PackagePath}/opt/GhostVPN/AmazTool" 2>/dev/null || true
+sudo chmod 755 "${PackagePath}/opt/CaimanVPN/CaimanVPN" 2>/dev/null || true
+sudo chmod 755 "${PackagePath}/opt/CaimanVPN/AmazTool" 2>/dev/null || true
 
 # build deb package
 sudo dpkg-deb -Zxz --build $PackagePath
-sudo mv "${PackagePath}.deb" "GhostVPN-${Arch}.deb"
+sudo mv "${PackagePath}.deb" "CaimanVPN-${Arch}.deb"

@@ -1,0 +1,187 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" />
+    </Design.PreviewWith>
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource CaimanMainBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+        <Setter Property="FontFamily" Value="avares://CaimanVPN/Assets/Fonts/NotoSansSC-Regular.ttf#Noto Sans SC, Segoe UI, Arial" />
+    </Style>
+
+    <Style Selector="UserControl">
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="Border.CaimanCard">
+        <Setter Property="Background" Value="{DynamicResource CaimanCardBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="16" />
+    </Style>
+
+    <Style Selector="Border.CaimanHeroCard">
+        <Setter Property="Background" Value="{DynamicResource CaimanHeroBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="20" />
+    </Style>
+
+    <Style Selector="Border.CaimanShellCard">
+        <Setter Property="Background" Value="{DynamicResource CaimanCardStrongBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="16" />
+    </Style>
+
+    <Style Selector="Border.CaimanMetricCard">
+        <Setter Property="Background" Value="#113220" />
+        <Setter Property="BorderBrush" Value="#2B6E4A" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+    </Style>
+
+    <Style Selector="Border.CaimanBadge">
+        <Setter Property="Background" Value="#18462F" />
+        <Setter Property="BorderBrush" Value="#2A7A51" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="999" />
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource CaimanCardStrongBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="14,10" />
+    </Style>
+
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="#194A32" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanAccentSoftBrush}" />
+    </Style>
+
+    <Style Selector="Button:pressed">
+        <Setter Property="Background" Value="#153D2A" />
+    </Style>
+
+    <Style Selector="Button.IconButton">
+        <Setter Property="Width" Value="{StaticResource IconButtonWidth}" />
+        <Setter Property="Height" Value="{StaticResource IconButtonHeight}" />
+        <Setter Property="MinWidth" Value="{StaticResource IconButtonWidth}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style Selector="Button.PrimaryAction">
+        <Setter Property="Background" Value="#175537" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanAccentSoftBrush}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="MinHeight" Value="48" />
+    </Style>
+
+    <Style Selector="Button.PrimaryAction:pointerover">
+        <Setter Property="Background" Value="#1F6C47" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CaimanAccentBrush}" />
+    </Style>
+
+    <Style Selector="Button.SecondaryAction">
+        <Setter Property="Background" Value="#123724" />
+        <Setter Property="BorderBrush" Value="#337D54" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="MinHeight" Value="46" />
+    </Style>
+
+    <Style Selector="Button.ConnectToggle">
+        <Setter Property="Width" Value="196" />
+        <Setter Property="Height" Value="196" />
+        <Setter Property="Padding" Value="24" />
+        <Setter Property="CornerRadius" Value="98" />
+        <Setter Property="Background" Value="{DynamicResource CaimanConnectButtonBrush}" />
+        <Setter Property="BorderBrush" Value="#A9F3CE" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Foreground" Value="#08341F" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.ConnectToggle:pointerover">
+        <Setter Property="Background" Value="#73E8AB" />
+        <Setter Property="BorderBrush" Value="#D6FAE9" />
+    </Style>
+
+    <Style Selector="TextBlock.CaimanTitle">
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.CaimanSubtitle">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.CaimanMicroLabel">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="#113220" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="#2C724D" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="ScrollViewer.AllowAutoHide" Value="False" />
+    </Style>
+
+    <Style Selector="ScrollViewer">
+        <Setter Property="AllowAutoHide" Value="False" />
+    </Style>
+
+    <Style Selector="TabControl">
+        <Setter Property="Theme" Value="{StaticResource LineTabControl}" />
+    </Style>
+
+    <Style Selector="TabItem">
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TabItem:selected">
+        <Setter Property="Foreground" Value="{DynamicResource CaimanAccentBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style Selector="DataGrid">
+        <Setter Property="RowHeight" Value="26" />
+        <Setter Property="Background" Value="#0D261A" />
+        <Setter Property="BorderBrush" Value="#2A6C49" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="ScrollViewer.AllowAutoHide" Value="False" />
+    </Style>
+
+    <Style Selector="DataGridRow">
+        <Setter Property="Background" Value="#0F2D1E" />
+    </Style>
+
+    <Style Selector="DataGridCell">
+        <Setter Property="BorderBrush" Value="#245B3F" />
+    </Style>
+
+    <Style Selector="GridSplitter">
+        <Setter Property="Background" Value="#2E734E" />
+    </Style>
+
+    <Style Selector="PathIcon">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Foreground" Value="{DynamicResource CaimanTextPrimaryBrush}" />
+    </Style>
+</Styles>

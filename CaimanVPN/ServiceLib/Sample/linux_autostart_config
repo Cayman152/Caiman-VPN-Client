@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=$ExecPath$
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=CaimanVPN
+Name=CaimanVPN
+Comment[en_US]=CaimanVPN
+Comment=CaimanVPN
