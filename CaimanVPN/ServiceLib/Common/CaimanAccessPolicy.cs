@@ -6,7 +6,8 @@ public static class CaimanAccessPolicy
     private static readonly HashSet<string> AllowedExactHosts = new(StringComparer.OrdinalIgnoreCase)
     {
         "5.34.214.238",
-        "77.73.70.240"
+        "77.73.70.240",
+        "169.40.4.196"
     };
 
     private static readonly string[] AllowedHostKeywords =
