@@ -2,11 +2,13 @@
 
 Собственный VPN-клиент для Windows и macOS (с фокусом на простое подключение и маршрутизацию по правилам).
 
-## Быстро скачать
+## ⬇️ Скачать
 
-[![Скачать для Windows](https://img.shields.io/static/v1?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C&message=Windows%20x64%20(.exe)&color=2BAA63&style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-Setup-x64.exe)
-
-[![Скачать для macOS](https://img.shields.io/static/v1?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C&message=macOS%20arm64%20(.pkg)&color=1B4D34&style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-macOS-arm64.pkg)
+| Платформа | Скачать |
+|-----------|--------|
+| Windows | [![Download Windows](https://img.shields.io/badge/Download-Windows%20x64%20(.exe)-28A745?style=for-the-badge&logo=microsoft&logoColor=white)](https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-Setup-x64.exe) |
+| macOS Apple Silicon | [![Download macOS Apple Silicon](https://img.shields.io/badge/Download-macOS%20Apple%20Silicon%20(.pkg)-28A745?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-macOS-arm64.pkg) |
+| macOS Intel | [![Download macOS Intel](https://img.shields.io/badge/Download-macOS%20Intel%20(.pkg)-28A745?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Cayman152/Caiman-VPN-Client/releases/latest/download/CaimanVPN-macOS-x64.pkg) |
 
 ## Скачать
 
